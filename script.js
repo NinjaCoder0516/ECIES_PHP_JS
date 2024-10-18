@@ -219,7 +219,7 @@ $(document).ready(function () {
     const ec = new elliptic.ec("secp256k1");
     const message = $("#message").val();
     const privateKey = await ec.keyFromPrivate($("#jsPrivateKey").val(), "hex");
-    const publicKey = await ec.keyFromPublic($("#jsPublicKey").val(), "hex");
+    const publicKey = await ec.keyFromPublic($("#phpPublicKey").val(), "hex");
 
     const ecies = new ECIES(privateKey, publicKey);
     const cipher = await ecies.encrypt(message);
@@ -233,7 +233,7 @@ $(document).ready(function () {
     const ec = new elliptic.ec("secp256k1");
     const encrypted = $("#encrypted").val();
     const privateKey = await ec.keyFromPrivate($("#jsPrivateKey").val(), "hex");
-    const publicKey = await ec.keyFromPublic($("#jsPublicKey").val(), "hex");
+    const publicKey = await ec.keyFromPublic($("#phpPublicKey").val(), "hex");
 
     const ecies = new ECIES(privateKey, publicKey);
     const decrypted = await ecies.decrypt(Utils.hex2bin(encrypted));
@@ -247,7 +247,7 @@ $(document).ready(function () {
     const response = await $.post(apiUrl, {
       action: "encrypt",
       privateKey: $("#phpPrivateKey").val(),
-      publicKey: $("#phpPublicKey").val(),
+      publicKey: $("#jsPublicKey").val(),
       message,
     });
 
@@ -261,7 +261,7 @@ $(document).ready(function () {
     const response = await $.post(apiUrl, {
       action: "decrypt",
       privateKey: $("#phpPrivateKey").val(),
-      publicKey: $("#phpPublicKey").val(),
+      publicKey: $("#jsPublicKey").val(),
       encrypted: encryptedMessage,
     });
 
